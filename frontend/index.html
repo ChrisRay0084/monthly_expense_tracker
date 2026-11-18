@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div>
+                <h1>Expense Tracker</h1>
+                <p>Track your spending. Take control.</p>
+            </div>
+            <button id="theme-toggle" class="theme-toggle" type="button">Use light theme</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="panel">
+            <h2>Monthly Overview</h2>
+
+            <div class="month-controls">
+                <label>
+                    Year
+                    <input type="number" id="summary-year" value="2026">
+                </label>
+
+                <label>
+                    Month
+                    <select id="summary-month">
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10" selected>October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </label>
+
+                <button id="load-summary">Load Summary</button>
+                <article class="cash-total-card" aria-live="polite">
+                    <p>Current Total Cash</p>
+                    <h3 id="current-cash" class="cash-neutral">$0.00</h3>
+                </article>
+            </div>
+
+            <p id="summary-status" class="status" role="status"></p>
+
+            <div class="summary-grid">
+                <article class="summary-card">
+                    <p>Total Spent</p>
+                    <h3 id="total-spent">$0.00</h3>
+                </article>
+
+                <article class="summary-card">
+                    <p>Expenses</p>
+                    <h3 id="expense-count">0</h3>
+                </article>
+
+                <article class="summary-card">
+                    <p>Average Expense</p>
+                    <h3 id="average-expense">$0.00</h3>
+                </article>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Recurring Monthly Plan</h2>
+            <div class="cashflow-grid">
+                <article class="summary-card">
+                    <p>Planned Income</p>
+                    <h3 id="monthly-income">$0.00</h3>
+                </article>
+                <article class="summary-card">
+                    <p>Scheduled Bills</p>
+                    <h3 id="scheduled-bills">$0.00</h3>
+                </article>
+                <article class="summary-card">
+                    <p>Bills Paid This Month</p>
+                    <h3 id="paid-bills">$0.00</h3>
+                </article>
+                <article class="summary-card">
+                    <p>Income After Paid Bills</p>
+                    <h3 id="income-after-bills">$0.00</h3>
+                </article>
+            </div>
+            <p id="recurring-status" class="status" role="status" aria-live="polite"></p>
+
+            <div class="recurring-columns">
+                <section class="recurring-block">
+                    <h3>Income by Person</h3>
+                    <form id="income-form" class="recurring-form">
+                        <label>
+                            Person
+                            <input type="text" id="income-person" maxlength="100" required>
+                        </label>
+                        <label>
+                            Income source
+                            <input type="text" id="income-source" placeholder="e.g. Paycheck" maxlength="100" required>
+                        </label>
+                        <label>
+                            Pay amount
+                            <input type="number" id="income-amount" min="0.01" step="0.01" required>
+                        </label>
+                        <label>
+                            Frequency
+                            <select id="income-frequency">
+                                <option value="monthly">Monthly</option>
+                                <option value="biweekly">Biweekly (2 checks/month)</option>
+                                <option value="once">One-time check</option>
+                            </select>
+                        </label>
+                        <label id="income-date-field" hidden>
+                            Check date
+                            <input type="date" id="income-date">
+                        </label>
+                        <button type="submit">Add Income</button>
+                    </form>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Person</th>
+                                    <th>Source</th>
+                                    <th>Pay</th>
+                                    <th>Monthly</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="income-list">
+                                <tr><td colspan="5">Loading income...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="recurring-block">
+                    <h3>Monthly Bills</h3>
+                    <form id="bill-form" class="recurring-form">
+                        <label>
+                            Bill
+                            <input type="text" id="bill-title" placeholder="e.g. Rent or electricity" maxlength="100" required>
+                        </label>
+                        <label>
+                            Amount
+                            <input type="number" id="bill-amount" min="0.01" step="0.01" required>
+                        </label>
+                        <label>
+                            Category
+                            <input type="text" id="bill-category" value="Bills" maxlength="50" required>
+                        </label>
+                        <label>
+                            Due day
+                            <input type="number" id="bill-due-day" min="1" max="31" value="1" required>
+                        </label>
+                        <button type="submit">Add Monthly Bill</button>
+                    </form>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Bill</th>
+                                    <th>Due</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bill-list">
+                                <tr><td colspan="5">Loading bills...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Add an Expense</h2>
+
+            <form id="expense-form">
+                <label>
+                    Description
+                    <input type="text" id="description" name="title"
+                           placeholder="e.g. Groceries" required>
+                </label>
+
+                <label>
+                    Amount ($)
+                    <input type="number" id="amount" name="amount"
+                           min="0.01" step="0.01" required>
+                </label>
+
+                <label>
+                    Category
+                    <input type="text" id="category" name="category"
+                           placeholder="e.g. Food" required>
+                </label>
+
+                <label>
+                    Date
+                    <input type="date" id="expense-date" name="expense_date" required>
+                </label>
+
+                <button type="submit">Add Expense</button>
+                <p id="form-status" class="status" role="status"></p>
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2>Category Totals</h2>
+            <div id="category-totals">
+                <p>Category totals will appear here.</p>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Recent Expenses</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expense-list">
+                        <tr>
+                            <td colspan="5">Loading expenses...</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p id="expense-list-status" class="status" role="status" aria-live="polite"></p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js?v=9"></script>
+</body>
+</html>

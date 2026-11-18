@@ -1,0 +1,448 @@
+
+/* 1. Global styles */
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    color-scheme: dark;
+    --background: #101419;
+    --panel: #1a2129;
+    --panel-light: #222c36;
+    --text: #f1f5f9;
+    --muted: #a6b3c2;
+    --accent: #b7f34a;
+    --border: #344150;
+    --danger: #ff7777;
+    --header: #171e26;
+    --input: #111820;
+    --button-text: #17200d;
+}
+
+:root[data-theme="light"] {
+    color-scheme: light;
+    --background: #f2f6f3;
+    --panel: #ffffff;
+    --panel-light: #eaf1ec;
+    --text: #19251d;
+    --muted: #58695f;
+    --accent: #356a46;
+    --border: #d4dfd7;
+    --danger: #b42318;
+    --header: #e8f0ea;
+    --input: #ffffff;
+    --button-text: #ffffff;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.5;
+    transition: background-color 180ms ease, color 180ms ease;
+}
+
+/* 2. Header */
+.app-header {
+    background: var(--header);
+    border-bottom: 1px solid var(--border);
+    padding: 24px;
+}
+
+.app-header > div {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: var(--accent);
+}
+
+.app-header p {
+    margin: 5px 0 0;
+    color: var(--muted);
+}
+
+/* 3. Main layout */
+.container {
+    max-width: 1100px;
+    margin: 28px auto;
+    padding: 0 20px;
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.panel h2 {
+    margin: 0 0 20px;
+    font-size: 20px;
+}
+
+/* 4. Monthly controls */
+.month-controls {
+    display: flex;
+    align-items: end;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.cash-total-card {
+    min-width: 190px;
+    min-height: 76px;
+    margin-left: auto;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--panel-light);
+}
+
+.cash-total-card p {
+    margin: 0 0 3px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.cash-total-card h3 {
+    margin: 0;
+    font-size: 23px;
+    overflow-wrap: anywhere;
+}
+
+.cash-positive {
+    color: var(--accent);
+}
+
+.cash-negative {
+    color: var(--danger);
+}
+
+.cash-neutral {
+    color: var(--muted);
+}
+
+/* 5. Form controls */
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+input,
+select {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: var(--input);
+    color: var(--text);
+    font: inherit;
+}
+
+.month-controls label {
+    min-width: 130px;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* 6. Buttons */
+button {
+    min-height: 44px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 7px;
+    background: var(--accent);
+    color: var(--button-text);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(0.92);
+}
+
+button:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 3px;
+}
+
+.theme-toggle {
+    min-width: 145px;
+    border: 1px solid var(--border);
+    background: var(--panel-light);
+    color: var(--text);
+}
+
+/* 7. Summary cards */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.cashflow-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.recurring-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.recurring-block {
+    min-width: 0;
+}
+
+.recurring-block h3 {
+    margin: 0 0 14px;
+    font-size: 17px;
+}
+
+.recurring-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: end;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.recurring-form label[hidden] {
+    display: none;
+}
+
+.recurring-form button {
+    grid-column: 1 / -1;
+}
+
+.cashflow-grid .summary-card {
+    padding: 16px;
+}
+
+.cashflow-grid .summary-card h3 {
+    font-size: 23px;
+}
+
+.compact-button {
+    min-height: 34px;
+    padding: 6px 9px;
+    margin: 2px;
+    white-space: nowrap;
+}
+
+.secondary-button {
+    border: 1px solid var(--border);
+    background: var(--panel-light);
+    color: var(--text);
+}
+
+.summary-card {
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--panel-light);
+}
+
+.summary-card p {
+    margin: 0 0 8px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.summary-card h3 {
+    margin: 0;
+    color: var(--accent);
+    font-size: 28px;
+    overflow-wrap: anywhere;
+}
+
+/* 8. Add-expense form */
+#expense-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+#expense-form button,
+#form-status {
+    grid-column: 1 / -1;
+}
+
+/* 9. Category totals */
+#category-totals {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.category-card {
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--panel-light);
+}
+
+.category-card p {
+    margin: 0 0 6px;
+    color: var(--muted);
+}
+
+.category-card h3 {
+    margin: 0;
+    color: var(--accent);
+}
+
+/* 10. Expense table */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 13px 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    color: var(--muted);
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+td {
+    font-size: 14px;
+}
+
+tbody tr:hover {
+    background: var(--panel-light);
+}
+
+.delete-button {
+    min-height: 34px;
+    padding: 6px 10px;
+    border: 1px solid var(--danger);
+    background: transparent;
+    color: var(--danger);
+}
+
+.delete-button:hover {
+    background: var(--danger);
+    color: var(--background);
+    filter: none;
+}
+
+.delete-button:disabled {
+    cursor: wait;
+    opacity: 0.6;
+}
+
+/* 11. Status and error messages */
+.status {
+    min-height: 20px;
+    margin: 10px 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.status.error {
+    color: var(--danger);
+}
+
+.status.success {
+    color: var(--accent);
+}
+
+/* 12. Phone and tablet layout */
+@media (max-width: 650px) {
+    .header-inner {
+        align-items: flex-start;
+    }
+
+    .container {
+        margin-top: 18px;
+        padding: 0 12px;
+    }
+
+    .panel {
+        padding: 17px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cashflow-grid,
+    .recurring-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .recurring-form {
+        grid-template-columns: 1fr;
+    }
+
+    .recurring-form button {
+        grid-column: auto;
+    }
+
+    #expense-form {
+        grid-template-columns: 1fr;
+    }
+
+    #expense-form button,
+    #form-status {
+        grid-column: auto;
+    }
+
+    .month-controls {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .month-controls label {
+        width: 100%;
+    }
+
+    .month-controls button {
+        width: 100%;
+    }
+
+    .cash-total-card {
+        width: 100%;
+        margin-left: 0;
+    }
+}
