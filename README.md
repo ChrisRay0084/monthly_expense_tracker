@@ -123,8 +123,10 @@ rollback, and static frontend/API compatibility.
 ## Vercel preparation
 
 The FastAPI application is exposed as `backend.main:app` for Vercel's Python
-runtime via `pyproject.toml`. Python 3.14 is declared, and the frontend is
-served by the FastAPI static mount. Configure the Vercel project's
+runtime via `pyproject.toml`. Runtime packages are declared in both
+`pyproject.toml` (for Vercel builds) and `requirements.txt` (for local setup).
+Python 3.14 is declared, and the frontend is served by the FastAPI static
+mount. Configure the Vercel project's
 `DATABASE_URL` as a secret environment variable using the pooled Neon
 connection string; do not upload `.env` or expose database credentials to the
 browser. Vercel's Python runtime and static-file behavior should be verified
